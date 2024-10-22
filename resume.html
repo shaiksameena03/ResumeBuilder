@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="email"], input[type="file"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .resume-output {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+            display: none;
+            display: flex;
+        }
+
+        .personal-details, .details {
+            width: 50%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .personal-details {
+            border-right: 1px solid #ccc; /* Vertical divider */
+            padding-right: 20px;
+        }
+
+        .details {
+            padding-left: 20px;
+        }
+
+        h2, h3 {
+            margin: 15px 0 10px;
+            color: #333;
+        }
+
+        img {
+            max-width: 150px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 15px;
+        }
+
+        /* Template styles */
+        .template1 {
+            background: #e7f3fe;
+            padding: 15px;
+            border-left: 5px solid #007bff;
+            border-radius: 4px;
+        }
+
+        .template2 {
+            background: #f9e7e7;
+            padding: 15px;
+            border-left: 5px solid #ff4d4d;
+            border-radius: 4px;
+        }
+
+        .template3 {
+            background: #e7ffe7;
+            padding: 15px;
+            border-left: 5px solid #4dff4d;
+            border-radius: 4px;
+        }
+
+        /* Additional styles for better presentation */
+        .resume-output p, .resume-output ul {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .resume-output ul {
+            padding-left: 20px;
+        }
+
+        /* Education Details */
+        .education-entry {
+            margin-bottom: 15px;
+        }
+
+        .education-entry p {
+            margin: 5px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .resume-output {
+                flex-direction: row;
+            }
+
+            .personal-details, .details {
+                width: 50%;
+                padding: 10px 0;
+                border: none;
+            }
+
+            .personal-details {
+                padding-right: 0;
+                border-bottom: 1px solid #ccc;
+            }
+
+            .details {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resume Builder</h1>
+        <form id="resume-form">
+            <!-- Personal Details -->
+            <div class="form-group">
+                <label for="photo">Upload Photo (optional):</label>
+                <input type="file" id="photo" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" required>
+            </div>
+            <div class="form-group">
+                <label for="linkedin">LinkedIn Profile:</label>
+                <input type="text" id="linkedin">
+            </div>
+            <!-- Summary -->
+            <div class="form-group">
+                <label for="summary">Summary:</label>
+                <textarea id="summary" rows="3" required></textarea>
+            </div>
+            <!-- Experience -->
+            <div class="form-group">
+                <label for="experience">Experience:</label>
+                <textarea id="experience" rows="4" required></textarea>
+            </div>
+            <!-- Internships -->
+            <div class="form-group">
+                <label for="internships">Internships:</label>
+                <textarea id="internships" rows="3"></textarea>
+            </div>
+            <!-- Education -->
+            <div class="form-group">
+                <label>Education:</label>
+                <div class="education-entry">
+                    <label for="degree">Degree Type:</label>
+                    <select id="degree" required>
+                        <option value="" disabled selected>Select Degree</option>
+                        <option value="High School">High School</option>
+                        <option value="Associate's">Associate's</option>
+                        <option value="Bachelor's">Bachelor's</option>
+                        <option value="Master's">Master's</option>
+                        <option value="PhD">PhD</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="education-entry">
+                    <label for="field">Field of Study:</label>
+                    <input type="text" id="field" placeholder="e.g., Computer Science" required>
+                </div>
+                <div class="education-entry">
+                    <label for="institution">Institution:</label>
+                    <input type="text" id="institution" placeholder="e.g., XYZ University" required>
+                </div>
+                <div class="education-entry">
+                    <label for="percentage">Percentage/GPA:</label>
+                    <input type="text" id="percentage" placeholder="e.g., 85%" required>
+                </div>
+            </div>
+            <!-- Skills -->
+            <div class="form-group">
+                <label for="skills">Skills:</label>
+                <textarea id="skills" rows="2" required></textarea>
+            </div>
+            <!-- Projects -->
+            <div class="form-group">
+                <label for="projects">Projects:</label>
+                <textarea id="projects" rows="2" required></textarea>
+            </div>
+            <!-- Certifications -->
+            <div class="form-group">
+                <label for="certifications">Certifications:</label>
+                <textarea id="certifications" rows="2"></textarea>
+            </div>
+            <!-- Languages -->
+            <div class="form-group">
+                <label for="languages">Languages:</label>
+                <textarea id="languages" rows="2"></textarea>
+            </div>
+            <!-- Extracurricular Activities -->
+            <div class="form-group">
+                <label for="activities">Extracurricular Activities:</label>
+                <textarea id="activities" rows="3"></textarea>
+            </div>
+            <!-- Template Selection -->
+            <div class="form-group">
+                <label for="template">Select a Template:</label>
+                <select id="template">
+                    <option value="template1">Template 1</option>
+                    <option value="template2">Template 2</option>
+                    <option value="template3">Template 3</option>
+                </select>
+            </div>
+            <button type="submit">Generate Resume</button>
+        </form>
+
+        <div class="resume-output" id="resume-output">
+            <div class="personal-details">
+                <img id="resume-photo" src="" alt="Profile Photo" style="display:none;">
+                <p><strong>Name:</strong> <span id="resume-name">N/A</span></p>
+                <p><strong>Email:</strong> <span id="resume-email">N/A</span></p>
+                <p><strong>Phone Number:</strong> <span id="resume-phone">N/A</span></p>
+                <p><strong>Address:</strong> <span id="resume-address">N/A</span></p>
+                <p><strong>LinkedIn:</strong> <span id="resume-linkedin">N/A</span></p>
+                <p><strong>Skills:</strong> <span id="resume-skills">N/A</span></p>
+                <p><strong>Languages:</strong> <span id="resume-languages">N/A</span></p>
+            </div>
+            <div class="details">
+                <p><strong>Summary:</strong></p>
+                <p id="resume-summary">N/A</p>
+                <p><strong>Experience:</strong></p>
+                <div id="resume-experience">N/A</div>
+                <p><strong>Internships:</strong></p>
+                <div id="resume-internships">N/A</div>
+                <p><strong>Education:</strong></p>
+                <div id="resume-education">N/A</div>
+                <p><strong>Projects:</strong></p>
+                <div id="resume-projects">N/A</div>
+                <p><strong>Certifications:</strong></p>
+                <div id="resume-certifications">N/A</div>
+                <p><strong>Extracurricular Activities:</strong></p>
+                <div id="resume-activities">N/A</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("resume-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Helper function to convert text to bullet points
+            function toBulletPoints(text) {
+                if (!text) return "N/A";
+                const items = text.split('\n').filter(item => item.trim() !== "");
+                if (items.length === 0) return "N/A";
+                return "<ul><li>" + items.join("</li><li>") + "</li></ul>";
+            }
+
+            // Populate Personal Details
+            document.getElementById("resume-name").textContent = document.getElementById("name").value || "N/A";
+            document.getElementById("resume-email").textContent = document.getElementById("email").value || "N/A";
+            document.getElementById("resume-phone").textContent = document.getElementById("phone").value || "N/A";
+            document.getElementById("resume-address").textContent = document.getElementById("address").value || "N/A";
+            document.getElementById("resume-linkedin").textContent = document.getElementById("linkedin").value || "N/A";
+
+            // Populate Summary
+            const summary = document.getElementById("summary").value.trim();
+            document.getElementById("resume-summary").textContent = summary ? summary : "N/A";
+
+            // Populate Experience, Internships, Skills, Projects, Certifications, Languages, Activities with bullets
+            document.getElementById("resume-experience").innerHTML = toBulletPoints(document.getElementById("experience").value);
+            document.getElementById("resume-internships").innerHTML = toBulletPoints(document.getElementById("internships").value);
+            document.getElementById("resume-skills").innerHTML = toBulletPoints(document.getElementById("skills").value);
+            document.getElementById("resume-projects").innerHTML = toBulletPoints(document.getElementById("projects").value);
+            document.getElementById("resume-certifications").innerHTML = toBulletPoints(document.getElementById("certifications").value);
+            document.getElementById("resume-languages").innerHTML = toBulletPoints(document.getElementById("languages").value);
+            document.getElementById("resume-activities").innerHTML = toBulletPoints(document.getElementById("activities").value);
+
+            // Populate Education Section
+            const degree = document.getElementById("degree").value;
+            const field = document.getElementById("field").value.trim();
+            const institution = document.getElementById("institution").value.trim();
+            const percentage = document.getElementById("percentage").value.trim();
+
+            if (degree && field && institution && percentage) {
+                const educationHTML = `
+                    <p><strong>Degree:</strong> ${degree}</p>
+                    <p><strong>Field of Study:</strong> ${field}</p>
+                    <p><strong>Institution:</strong> ${institution}</p>
+                    <p><strong>Percentage/GPA:</strong> ${percentage}</p>
+                `;
+                document.getElementById("resume-education").innerHTML = educationHTML;
+            } else {
+                document.getElementById("resume-education").textContent = "N/A";
+            }
+
+            // Apply Selected Template
+            const selectedTemplate = document.getElementById("template").value;
+            const resumeOutput = document.getElementById("resume-output");
+
+            // Remove existing template classes
+            resumeOutput.classList.remove("template1", "template2", "template3");
+
+            // Add the selected template class
+            resumeOutput.classList.add(selectedTemplate);
+
+            // Show photo if uploaded
+            const photoInput = document.getElementById("photo");
+            const photo = document.getElementById("resume-photo");
+            if (photoInput.files && photoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    photo.src = e.target.result;
+                    photo.style.display = "block";
+                };
+                reader.readAsDataURL(photoInput.files[0]);
+            } else {
+                // Hide the photo element if no photo is uploaded
+                photo.style.display = "none";
+            }
+
+            // Show the generated resume output
+            resumeOutput.style.display = "flex";
+        });
+    </script>
+</body>
+</html>
